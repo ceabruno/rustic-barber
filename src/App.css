@@ -297,21 +297,33 @@
    OPTIMIZACIÓN MÓVIL (Media Queries)
    ========================================= */
 @media (max-width: 768px) {
+  /* 1. Arreglo para la Barra de Navegación */
   .header {
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
-    text-align: center;
+    flex-direction: row; /* Mantiene el logo y el botón en la misma línea */
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
   }
   
   .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
+    display: none; /* Ocultamos los links en móvil para que no rompan el diseño (puedes dejarlos si prefieres, pero ocupan mucho espacio) */
+  }
+
+  .header .btn {
+    padding: 0.5rem 1rem; /* Botón de reservar un poco más pequeño arriba */
+    font-size: 0.75rem;
+  }
+
+  /* 2. Arreglo para la Imagen de Fondo (Hero) */
+  .hero {
+    /* Reducimos la altura en móvil para que la foto no se vea obligada a hacer tanto "zoom" y recortar los lados */
+    min-height: 65vh; 
+    /* Cambia 'center' por 'center top' si quieres que se vea más la parte de arriba de la foto */
+    background-position: center; 
   }
 
   .hero-overlay {
-    padding: 3rem 1.5rem;
+    min-height: 65vh;
+    padding: 2.5rem 1.5rem;
   }
 
   .hero-title {
@@ -340,6 +352,7 @@
     text-align: center;
   }
 
+  /* 3. Ajustes de la sección Servicios */
   .section {
     padding: 3rem 1.5rem;
   }
@@ -352,7 +365,7 @@
     font-size: 1.5rem;
   }
 
-  /* Pasa las tarjetas a 1 sola columna */
+  /* Pasa las tarjetas a 1 sola columna para que no se aprieten */
   .services-grid {
     grid-template-columns: 1fr; 
     gap: 1rem;
@@ -368,6 +381,7 @@
     gap: 0.3rem;
   }
 
+  /* 4. Ajustes de la sección Información */
   .info-section {
     padding: 3rem 1.5rem;
   }
@@ -378,12 +392,13 @@
   }
 }
 
+/* Pantallas extremadamente pequeñas (iPhone SE, etc) */
 @media (max-width: 480px) {
   .logo {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   
-  .nav-links {
-    display: none; 
+  .hero-title {
+    font-size: 1.9rem;
   }
 }
