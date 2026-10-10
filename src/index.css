@@ -18,12 +18,14 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-main);
   line-height: 1.6;
   scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 a {
