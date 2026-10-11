@@ -85,21 +85,49 @@
 }
 
 /* =========================================
-   SECCIÓN HERO (Fondo e inicio)
+   SECCIÓN HERO (Carrusel de Fondo)
    ========================================= */
 .hero {
   position: relative;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid var(--border-color);
+  /* overflow: hidden es vital para que no aparezca scroll horizontal extra */
+  overflow: hidden; 
 }
 
+/* El contenedor principal mide el doble del ancho de la pantalla (200%) */
+.carousel-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%; 
+  height: 100%;
+  display: flex;
+  transition: transform 1s ease-in-out; /* Define qué tan suave es el deslizamiento */
+  z-index: 0;
+}
+
+/* Cada diapositiva mide exactamente el ancho de la pantalla (50% del contenedor) */
+.carousel-slide {
+  width: 50%;
+  height: 100%;
+  position: relative;
+}
+
+.slide-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* La capa oscura va por sobre el carrusel (z-index 1) */
 .hero-overlay {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   min-height: 85vh;
@@ -109,8 +137,8 @@
   padding: 4rem 2rem;
   background: linear-gradient(
     180deg,
-    rgba(18, 18, 18, 0.75) 0%,
-    rgba(18, 18, 18, 0.88) 100%
+    rgba(18, 18, 18, 0.65) 0%,
+    rgba(18, 18, 18, 0.90) 100%
   );
 }
 
@@ -140,7 +168,7 @@
 }
 
 .hero-description {
-  color: #e0e0e0;
+  color: var(--accent-gold);
   font-size: 1.15rem;
   margin-bottom: 2.2rem;
   max-width: 620px;

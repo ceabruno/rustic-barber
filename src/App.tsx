@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import './App.css';
 import headerBg from './assets/Header-rustic.jpg';
+import heroVideo from './assets/video-header.mp4';
 
 interface ServiceItem {
   name: string;
@@ -85,6 +87,19 @@ const serviceCategories: ServiceCategory[] = [
 ];
 
 export default function App() {
+  // Estado para controlar qué fondo se muestra (0 = imagen, 1 = video)
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Temporizador para cambiar automáticamente el fondo cada 7 segundos
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev === 0 ? 1 : 0));
+    }, 7000); 
+    
+    // Limpia el temporizador si el componente se desmonta
+    return () => clearInterval(timer); 
+  }, []);
+
   return (
     <div className="landing-container">
       {/* Barra de Navegación */}
@@ -101,18 +116,34 @@ export default function App() {
         <a href="#contacto" className="btn btn-primary">Reservar Hora</a>
       </header>
 
-      {/* Hero Section con imagen de fondo */}
-      <section 
-        id="inicio" 
-        className="hero"
-        style={{ backgroundImage: `url(${headerBg})` }}
-      >
+      {/* Hero Section con Carrusel de Fondo */}
+      <section id="inicio" className="hero">
+        
+        {/* Contenedor del Carrusel (se mueve de izquierda a derecha) */}
+        <div 
+          className="carousel-background"
+          style={{ transform: `translateX(-${currentSlide * 50}%)` }}
+        >
+          {/* Diapositiva 1: Imagen Estática */}
+          <div className="carousel-slide">
+            <img src={headerBg} alt="Fondo Rustic Barbería" className="slide-media" />
+          </div>
+          
+          {/* Diapositiva 2: Video */}
+          <div className="carousel-slide">
+            <video autoPlay loop muted playsInline className="slide-media">
+              <source src={heroVideo} type="video/mp4" />
+            </video>
+          </div>
+        </div>
+
+        {/* Overlay fijo con el texto (no se mueve con el carrusel) */}
         <div className="hero-overlay">
           <div className="hero-content">
             <p className="hero-subtitle">Barbería Tradicional & Estilo Moderno</p>
             <h1 className="hero-title">Una experiencia para ti.</h1>
             <p className="hero-description">
-             Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..
+              Agenda una cita y vive la comodidad y profesionalismo de nuestro equipo de barberos expertos.
             </p>
             <div className="hero-actions">
               <a href="#contacto" className="btn btn-primary">Agendar Cita</a>
